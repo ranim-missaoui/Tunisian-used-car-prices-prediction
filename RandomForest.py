@@ -7,6 +7,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
 import numpy as np
 import pandas as pd
+import joblib
+import os
 
 df = load()
 print(df.head())
@@ -67,3 +69,7 @@ comparison = pd.DataFrame({
     "Actual": y_test[:10].values
 })
 print(comparison)
+
+
+os.makedirs("model", exist_ok=True)
+joblib.dump(rf_pipeline, "model/best_rf_model.pkl")
