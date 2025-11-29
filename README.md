@@ -18,10 +18,15 @@ R² 0.75 → MAE 20.8k DT
 
 ## CLI example
 Brand (Abarth, Alfa Romeo, Audi, Chery, Chevrolet, Citroën, Dacia, Fiat...): Fiat
+
 Model for Fiat (500, 500 C, 500 Lounge, Ducato, Fiorino, Grande Punto...): Grande Punto
+
 Year (e.g. 2019): 2011
+
 Transmission (auto/manual): manual
+
 Engine size (L, e.g. 1.6): 1
+
 Mileage in KM (e.g. 120000): 200000
 
 ============================================================
@@ -31,3 +36,4 @@ Mileage in KM (e.g. 120000): 200000
 ------------------------------------------------------------
    PREDICTED PRICE: 28,752 DT
 ============================================================
+
