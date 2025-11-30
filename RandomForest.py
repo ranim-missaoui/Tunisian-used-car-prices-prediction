@@ -17,7 +17,7 @@ df["Is_Old"]            = (df["Age"] >= 15).astype(int)
 df["Luxury_x_New"]      = df["Is_Luxury"] * df["Is_Very_New"]
 categorical_cols = ["Brand", "Model", "Transmission"]
 numerical_cols = [
-    "Age", "Engine_size",
+    "Age", "Engine_size", "HP",
     "Is_Luxury", "Is_Very_New", "Is_Old", "Luxury_x_New"
 ] #removed data leakage
 

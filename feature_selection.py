@@ -30,13 +30,6 @@ def extract_engine_size(text):
     return m.group(1).replace(",",".") if m else None
 
 
-def extract_hp(text):
-    if pd.isna(text):
-        return None
-    text= str(text)
-    m = re.search(r"(\d+)\s?ch", text, re.IGNORECASE)
-    return int(m.group(1)) if m else None
-
 
 def extract_transmission(text):
     text = str(text)
@@ -65,17 +58,16 @@ def clean_model_name(text):
     return text
 
 
-df = pd.read_excel("cars_raw_full.xlsx")
+df = pd.read_excel("cars_scraped_raw.xlsx")
 df["Brand"] = df["Model_raw"].apply(extract_brand)
 df["Engine_size"] = df["Model_raw"].apply(extract_engine_size)
-df["HP"] = df["Model_raw"].apply(extract_hp)
 df["Transmission"] = df["Model_raw"].apply(extract_transmission)
 df["Model"] = df.apply(lambda row: extract_model(row["Model_raw"], row["Brand"]), axis=1).apply(clean_model_name)
 
 
 
 
-df.to_excel('cars_cleaned_full.xlsx' , index=False)
+df.to_excel('cars_cleaned.xlsx' , index=False)
 
 
 

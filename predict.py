@@ -11,19 +11,17 @@ if not os.path.exists(MODEL_PATH):
     exit(1)
 model = joblib.load(MODEL_PATH)
 
-
 from preprocess import load
 df = load()
 brand_to_models = df.groupby("Brand")["Model"].apply(lambda x: sorted(set(x.str.title()))).to_dict()
 all_brands = sorted(brand_to_models.keys())
 print("data loaded")
 
-
 print("\nTunisian Used Car Price Predictor")
 print("=" * 60)
 
 while True:
-    brand = input(f"\nBrand ({', '.join(all_brands[:8])}...): ").strip().title()
+    brand = input(f"\nBrand ({', '.join(all_brands[2:10])}...): ").strip().title()
     if not all_brands or brand in all_brands:
         break
     print(f"Invalid or rare brand: '{brand}'. Try one of the known brands above.")
@@ -49,6 +47,10 @@ engine = float(input("Engine size (L, e.g. 1.6): "))
 while not (0.8 <= engine <= 6.5):
     engine = float(input("Engine size between 0.8 and 6.5: "))
 
+HorsePower = int(input("Puissance fiscale (CV, e.g. 7): "))
+while not (3 <= HorsePower <= 30):
+    HorsePower = int(input("HP must be between 3 and 30 CV: "))
+
 mileage = int(input("Mileage in KM (e.g. 120000): "))
 while mileage < 0 or mileage > 900000:
     mileage = int(input("Mileage 0–900,000 KM: "))
@@ -59,12 +61,11 @@ is_very_new = 1 if age <= 2 else 0
 is_old = 1 if age >= 15 else 0
 luxury_x_new = is_luxury * is_very_new
 
-
-
 input_df = pd.DataFrame([{
     "Brand": brand,
     "Model": model_name,
     "Transmission": transmission,
+    "HP": HorsePower,                   
     "Age": age,
     "Engine_size": engine,
     "Is_Luxury": is_luxury,
@@ -78,9 +79,8 @@ price = np.expm1(pred_log)
 
 print("\n" + "=" * 60)
 print(f"   {brand} {model_name} {year}")
-print(f"   {engine}L • {mileage:,} km • {transmission.upper()}")
-print(f"   Age: {age} year(s) • {'LUXURY' if is_luxury else 'Standard'}")
+print(f"   {engine}L • {HorsePower} CV • {mileage:,} km • {transmission.upper()}")
+print(f"   Age: {age} year(s){' • LUXURY' if is_luxury else ''}")
 print("-" * 60)
 print(f"   PREDICTED PRICE: {price:,.0f} DT")
-print(f"   (error ~20k DT)")
 print("=" * 60)

@@ -4,7 +4,7 @@ ALL_BRANDS = ["Mercedes-Benz","BMW","Audi","Volkswagen","Porsche","Mini","Toyota
 LUXURY_BRANDS = ["Mercedes-Benz", "BMW", "Audi", "Porsche", "Lexus", "Land Rover", "Range Rover", "Jaguar"]
 
 def load():
-    df = pd.read_excel("cars_cleaned_full.xlsx")
+    df = pd.read_excel("cars_cleaned.xlsx")
     
     if "Model_raw" in df.columns:
         df = df.drop(columns=["Model_raw"])
@@ -30,9 +30,10 @@ def load():
     df["Mileage in KM"] = pd.to_numeric(df["Mileage in KM"], errors='coerce')
     df["price in DT"] = pd.to_numeric(df["price in DT"], errors='coerce')
     df["Year"] = pd.to_numeric(df["Year"], errors='coerce')
+    df["HP"] = pd.to_numeric(df["HP"], errors='coerce')
     df["Age"] = 2025 - df["Year"]
     
-    df = df.drop(columns=["HP"])
+
     df["Engine_size"] = df["Engine_size"].fillna(df["Engine_size"].median())
     df = df.dropna().reset_index(drop=True)
     print(df.isnull().sum())
@@ -40,7 +41,7 @@ def load():
 
     df["Is_Luxury"] = df["Brand"].isin(LUXURY_BRANDS).astype(int)
     
-    final_cols = ["Brand", "Model", "Age", "Engine_size", "Transmission", "Mileage in KM", "Is_Luxury", "price in DT"]
+    final_cols = ["Brand", "Model", "Age", "Engine_size","HP", "Transmission", "Mileage in KM", "Is_Luxury", "price in DT"]
     df = df[final_cols]
     
     return df
