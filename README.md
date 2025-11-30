@@ -4,7 +4,7 @@
 Real local data • Web scraper • ML model • CLI  
 
 **Current Best Accuracy**  
-R² 0.75 → MAE 20.8k DT  
+R² 0.85 → MAE 15k DT  
 
 
 ## Features
@@ -36,4 +36,5 @@ Mileage in KM (e.g. 120000): 200000
 ------------------------------------------------------------
    PREDICTED PRICE: 28,752 DT
 ============================================================
+
 
